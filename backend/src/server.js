@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
+import childRoutes from "./routes/child.js";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Rutas
 app.use("/auth", authRoutes);
+app.use("/child", childRoutes);
 
 // Conexión a Mongo
 mongoose
