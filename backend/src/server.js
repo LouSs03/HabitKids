@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
 import childRoutes from "./routes/child.js";
+import routineRoutes from "./routes/routines.js";
+
 
 dotenv.config();
 
@@ -15,6 +17,8 @@ app.use(express.json());
 // Rutas
 app.use("/auth", authRoutes);
 app.use("/child", childRoutes);
+app.use("/routines", routineRoutes);
+
 
 // Conexión a Mongo
 mongoose
