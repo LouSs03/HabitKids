@@ -1,10 +1,14 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import ParentHeader from "../../components/Parent/ParentHeader";
 import "./ParentDashboardPage.css";
+import { useNavigate } from "react-router-dom";
+
+
 
 interface Child {
   _id: string;
   name: string;
+  age?: number;
   avatar?: string;
 }
 
@@ -15,6 +19,7 @@ interface Summary {
 }
 
 const ParentDashboardPage = () => {
+  const navigate = useNavigate();
   const [children, setChildren] = useState<Child[]>([]);
   const [summary, setSummary] = useState<Summary>({
     pending: 0,
@@ -29,72 +34,95 @@ const ParentDashboardPage = () => {
 
   const fetchChildren = async () => {
     try {
-      const response = await fetch("http://localhost:4000/child/all");
-      const data = await response.json();
-      setChildren(data.children);
-    } catch (error) {
-      console.error("Error obteniendo los niños:", error);
+      const res = await fetch("http://localhost:4000/child/all/ID_DEL_PADRE_AQUI");
+      const data = await res.json();
+      setChildren(data.children || []);
+    } catch (e) {
+      console.log(e);
     }
   };
 
   const fetchSummary = async () => {
     try {
-      const response = await fetch("http://localhost:4000/routines/summary");
-      const data = await response.json();
-      setSummary({
-        pending: data.pending,
-        inProgress: data.inProgress,
-        completed: data.completed,
-      });
-    } catch (error) {
-      console.error("Error obteniendo el resumen:", error);
+      const res = await fetch("http://localhost:4000/routines/summary");
+      const data = await res.json();
+      setSummary(data);
+    } catch (e) {
+      console.log(e);
     }
   };
 
   return (
-    <div className="parent-dashboard-container">
+    <>
+      <ParentHeader />
 
-      <h1 className="dashboard-title">¡Bienvenido, John!</h1>
-      <p className="subtitle">Aquí tienes un resumen de la actividad de tus hijos.</p>
+      {/* WRAPPER que centra todo el contenido */}
+      <div className="dashboard-wrapper">
+        <div className="parent-dashboard-container">
 
-      <div className="summary-cards">
-        <div className="card">
-          <h3>Rutinas Pendientes</h3>
-          <p className="number">{summary.pending}</p>
-        </div>
+          <h1 className="dashboard-title">¡Bienvenido, John!</h1>
+          <p className="dashboard-sub">
+            Aquí tienes un resumen de la actividad de tus hijos.
+          </p>
 
-        <div className="card">
-          <h3>Rutinas En Curso</h3>
-          <p className="number">{summary.inProgress}</p>
-        </div>
+          {/* TARJETAS DE RESUMEN */}
+          <div className="summary-boxes">
+            <div className="summary-card">
+              <h3>Rutinas Pendientes</h3>
+              <span className="summary-number">{summary.pending}</span>
+            </div>
 
-        <div className="card">
-          <h3>Rutinas Completadas</h3>
-          <p className="number">{summary.completed}</p>
-        </div>
-      </div>
+            <div className="summary-card">
+              <h3>Rutinas En Curso</h3>
+              <span className="summary-number">{summary.inProgress}</span>
+            </div>
 
-      <h2 className="section-title">Tus Hijos</h2>
-
-      <div className="children-grid">
-        {children.map((child) => (
-          <div key={child._id} className="child-card">
-            <img
-              src={child.avatar || "https://i.pravatar.cc/100"}
-              className="child-avatar"
-            />
-            <h3 className="child-name">{child.name}</h3>
-
-            <Link className="btn-progress" to="/nino/camino">
-              Ver progreso
-            </Link>
-
-            <button className="btn-edit">Editar datos del hijo</button>
+            <div className="summary-card">
+              <h3>Rutinas Completadas</h3>
+              <span className="summary-number">{summary.completed}</span>
+            </div>
           </div>
-        ))}
-      </div>
 
-    </div>
+          {/* GRÁFICO */}
+          <div className="chart-container">
+            <h2>Progreso Semanal</h2>
+            <p>Aquí aparecerá la gráfica cuando existan rutinas registradas.</p>
+          </div>
+
+          {/* BOTÓN REGISTRAR HIJO */}
+          <button 
+            className="btn-register-child" 
+            onClick={() => navigate("/padre/hijo/registrar")}>
+            Registrar nuevo hijo
+          </button>
+
+          {/* SECCIÓN DE HIJOS */}
+          <h2 className="section-title">Tus Hijos</h2>
+
+          <div className="children-grid">
+            {children.length === 0 && (
+              <p style={{ color: "#666" }}>Aún no has registrado hijos.</p>
+            )}
+
+            {children.map((child) => (
+              <div key={child._id} className="child-card">
+                <img
+                  src={child.avatar || "https://i.pravatar.cc/80"}
+                  className="child-avatar"
+                  alt="avatar"
+                />
+                <div className="child-name">{child.name}</div>
+                {child.age && <div className="child-age">{child.age} años</div>}
+
+                <button className="btn-progress">Ver Progreso</button>
+                <button className="btn-edit">Editar datos del hijo</button>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -10,10 +10,13 @@ import { ChildLoginPage } from "./pages/Auth/ChildLoginPage";
 
 // Parent
 import ParentDashboardPage from "./pages/Parent/ParentDashboardPage";
+import ParentRegisterChildPage from "./pages/Parent/ParentRegisterChildPage";
+import ParentRoutinesPage from "./pages/Parent/ParentRoutinesPage";
+
 
 // Child
 import { ChildDashboardPage } from "./pages/Child/ChildDashboardPage";
-import ChildPathPage from "./pages/Child/ChildPathPage"; 
+import ChildPathPage from "./pages/Child/ChildPathPage";
 import { ChildRoutineTimerPage } from "./pages/Child/ChildRoutineTimerPage";
 import './App.css'; // Asegúrate de que esto esté aquí para cargar los estilos
 
@@ -27,12 +30,15 @@ export default function App() {
       {/* Auth padre */}
       <Route path="/padre/login" element={<ParentLoginPage />} />
       <Route path="/padre/registro" element={<ParentRegisterPage />} />
+      <Route path="/padre/rutinas" element={<ParentRoutinesPage />} />
 
       {/* Auth niño */}
       <Route path="/nino/login" element={<ChildLoginPage />} />
 
       {/* Dashboard padre */}
       <Route path="/padre/dashboard" element={<ParentDashboardPage />} />
+      <Route path="/padre/hijo/registrar" element={<ParentRegisterChildPage />} />
+
 
       {/* Dashboard niño */}
       <Route path="/nino/dashboard" element={<ChildDashboardPage />} />

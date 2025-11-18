@@ -1,0 +1,61 @@
+/* FONDO DEL HEADER — tono muy suave estilo Visily */
+.parent-header {
+  width: 100%;
+  background-color: #fffdf0; /* AMARILLO SUPER SUAVE */
+  border-bottom: 1px solid #f1eecb;
+  padding: 14px 0;
+}
+
+/* CONTENIDO CENTRADO PERO HEADER FULL WIDTH */
+.parent-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LOGO */
+.ph-logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f3c400;
+}
+
+/* NAV */
+.ph-nav {
+  display: flex;
+  gap: 32px;
+  margin-left: 35px;
+}
+
+.ph-nav a {
+  font-size: 15px;
+  font-weight: 500;
+  color: #5a5a5a;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.ph-nav a:hover {
+  color: #000;
+}
+
+/* BOTÓN SALIR */
+.logout-btn {
+  border: none;
+  background: #fff4cc;
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: #c44c4c;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  transition: 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #ffe799;
+}
