@@ -9,12 +9,14 @@ import { ParentRegisterPage } from "./pages/Auth/ParentRegisterPage";
 import { ChildLoginPage } from "./pages/Auth/ChildLoginPage";
 
 // Parent
-import { ParentDashboardPage } from "./pages/Parent/ParentDashboardPage";
+import ParentDashboardPage from "./pages/Parent/ParentDashboardPage";
 
 // Child
 import { ChildDashboardPage } from "./pages/Child/ChildDashboardPage";
-import { ChildPathPage } from "./pages/Child/ChildPathPage";
+import ChildPathPage from "./pages/Child/ChildPathPage"; 
 import { ChildRoutineTimerPage } from "./pages/Child/ChildRoutineTimerPage";
+import './App.css'; // Asegúrate de que esto esté aquí para cargar los estilos
+
 
 export default function App() {
   return (

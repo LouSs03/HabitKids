@@ -1,10 +1,16 @@
 import mongoose from "mongoose";
 
-const ChildSchema = new mongoose.Schema({
-  name: String,
-  username: String,
-  pin: String,
-  parent: { type: mongoose.Schema.Types.ObjectId, ref: "Parent" }
+// Definir el esquema para el niño
+const childSchema = new mongoose.Schema({
+  name: { type: String },
+  username: { type: String, required: true, unique: true },
+  pin: { type: String, required: true },
+  age: { type: Number },
+  avatar: { type: String }, // Imagen/avatar del niño (opcional)
+  parent: { type: mongoose.Schema.Types.ObjectId, ref: "Parent" } // Referencia al padre
 });
 
-export default mongoose.model("Child", ChildSchema);
+// Crear el modelo de Niño
+const Child = mongoose.model("Child", childSchema);
+
+export default Child;

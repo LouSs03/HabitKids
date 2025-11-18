@@ -1,38 +1,30 @@
 import express from "express";
-import cors from "cors";
 import mongoose from "mongoose";
+import cors from "cors";
 import dotenv from "dotenv";
-import authRoutes from "./routes/auth.js";
-import childRoutes from "./routes/child.js";
-import routineRoutes from "./routes/routines.js";
-
+import childRoutes from "./routes/child.js"; // Ruta de niños
+import routineRoutes from "./routes/routines.js"; // Ruta de rutinas
 
 dotenv.config();
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
-// Rutas
-app.use("/auth", authRoutes);
-app.use("/child", childRoutes);
-app.use("/routines", routineRoutes);
+app.use("/child", childRoutes); // Ruta para los niños
+app.use("/routines", routineRoutes); // Ruta para las rutinas
 
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => {
+    console.log("MongoDB conectado");
+  })
+  .catch((err) => {
+    console.error("Error de conexión:", err);
+  });
 
-// Conexión a Mongo
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB conectado"))
-  .catch(err => console.error(err));
-
-// Ruta base
-app.get("/", (req, res) => {
-  res.send("HabitKids API funcionando");
+app.listen(4000, () => {
+  console.log("Servidor corriendo en http://localhost:4000");
 });
-
-// Servidor
-app.listen(process.env.PORT, () =>
-  console.log(`Servidor en http://localhost:${process.env.PORT}`)
-);
-

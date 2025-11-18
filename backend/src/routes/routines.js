@@ -1,14 +1,12 @@
-import { Router } from "express";
-import {
-  createRoutine,
-  getTodayRoutines,
-  completeRoutine
-} from "../controllers/routineController.js";
+import express from "express";
+import { createRoutine, getSummary } from "../controllers/routineController.js";
 
-const router = Router();
+const router = express.Router();
 
-router.post("/", createRoutine);
-router.get("/today/:childId", getTodayRoutines);
-router.patch("/:id/complete", completeRoutine);
+// Ruta para crear una rutina
+router.post("/create", createRoutine);
+
+// Ruta para obtener el resumen de las rutinas
+router.get("/summary", getSummary);
 
 export default router;
